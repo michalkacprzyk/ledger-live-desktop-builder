@@ -26,4 +26,4 @@ docker image rm local/ledger-live-desktop
 ## What if?
 
 - I do not guarantee anything, just publish my code as I stumbled on the issue myself, and thought it may be useful to somebody.
-- If you do not want to wait around 15 minutes, and trust their automatic build process, it is possible to get the final binary straight from (https://hub.docker.com/r/mkusanagi/ledger-live-desktop).
+- If you do not want to wait around 15 minutes, and trust their automatic build process, it is possible to get the final binary straight from: https://hub.docker.com/r/mkusanagi/ledger-live-desktop
