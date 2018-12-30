@@ -15,6 +15,14 @@ docker run -it --rm -v $(pwd):/host/ local/ledger-live-desktop
 ```
 Should be able to produce a fresh application file in the current working directory.
 
+### Cleanup & debugging
+If you have no interest in playing with the entire build environment (around **2.6GB**), you can reclaim the disk space.
+```
+docker image ls
+docker image prune
+docker image rm local/ledger-live-desktop
+```
+
 ## What if?
 
 - I do not guarantee anything, just publish my code as I stumbled on the issue myself, and thought it may be useful to somebody.
