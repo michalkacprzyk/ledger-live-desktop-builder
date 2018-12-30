@@ -1,10 +1,10 @@
 # mk (c) 2018
-# Build ledger-life-desktop software from sources
-#   as they lack proper verification of linux binaries
+# Build the ledger-life-desktop software from sources
+#   as the official download lacks proper verification of linux binaries
 # https://github.com/LedgerHQ/ledger-live-desktop/tree/master
 FROM ubuntu:bionic AS build
 
-# Easy part - straight from ubuntu repo
+# Easy part - straight from the ubuntu repos
 RUN apt-get update && apt-get install -y \
   build-essential \
   curl \
@@ -39,10 +39,12 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && apt-get update &&  apt-get install -y yarn \
   && yarn --version
 
+# Fresh source code
+RUN git clone --branch master https://github.com/LedgerHQ/ledger-live-desktop.git
+WORKDIR /ledger-live-desktop
+
 # Build
-RUN git clone https://github.com/LedgerHQ/ledger-live-desktop.git \
-  && cd ledger-live-desktop \
-  && sed -i "s/<\=8\.14\.0/<=8.15.0/" package.json \
+RUN sed -i "s/<\=8\.14\.0/<=8.15.0/" package.json \
   && yarn \
   && yarn dist
 
@@ -52,5 +54,5 @@ COPY --from=build /ledger-live-desktop/dist/*.AppImage /
 VOLUME /host
 
 # This assumes /host is binded to a host directory, for example
-# docker run -it --rm -v $(pwd):/host mkusanagi:ledger-live-desktop
+# docker run -it --rm -v $(pwd):/host mkusanagi/ledger-live-desktop
 CMD [ "sh", "-c", "cp /*.AppImage /host/" ]
